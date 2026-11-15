@@ -14,7 +14,7 @@
 
 ## Architecture & Pipeline
 
-1. **Frontend (`frontend/`):** React + TypeScript (Vite) single-page app that initiates OAuth, posts the short-lived access token to the backend, renders the audit dashboard, and exports results to CSV in the browser.
+1. **Frontend (`frontend/`):** React + JavaScript (Vite) single-page app that initiates OAuth, posts the short-lived access token to the backend, renders the audit dashboard, and exports results to CSV in the browser.
 2. **Backend (`backend/`):** Stateless Python (FastAPI) service exposing `POST /api/audit`:
    - **Targeted Email Fetch:** Pulls up to 50 receipt/invoice/subscription/statement emails from the last 90 days.
    - **In-Memory PII Sanitization:** Strips names, street addresses, phone numbers, email addresses, and account/card digits before LLM processing.
@@ -38,12 +38,11 @@ LockIn/
 │   │   ├── schemas/      # Pydantic models & Gemini structured JSON schemas
 │   │   └── services/     # Email ingestion, PII redactor, LLM client, financial math
 │   └── tests/            # Unit tests for PII sanitization and deterministic math
-└── frontend/             # React + TypeScript (Vite) single-page web app
+└── frontend/             # React + JavaScript (Vite) single-page web app
     ├── public/           # Static assets and Privacy Policy page
     └── src/
-        ├── components/   # OAuth connect controls, bloat alerts, projection cards
-        ├── services/     # Backend API client & client-side CSV export
-        └── types/        # TypeScript interfaces matching backend schemas
+        ├── components/   # OAuth connect controls, bloat alerts, projection cards (.jsx)
+        └── services/     # Backend API client, OAuth helper, compound math & CSV export (.js)
 ```
 
 ---

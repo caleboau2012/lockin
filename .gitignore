@@ -36,6 +36,7 @@ yarn-error.log*
 pnpm-debug.log*
 .pnpm-store/
 *.local
+*.tsbuildinfo
 frontend/dist/
 frontend/dist-ssr/
 

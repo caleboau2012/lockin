@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LockIn — Privacy Policy</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        color: #18181b;
+        background: #fafafa;
+        line-height: 1.6;
+        max-width: 640px;
+        margin: 48px auto;
+        padding: 0 20px;
+      }
+      h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+      h2 { font-size: 1.05rem; margin-top: 1.75rem; margin-bottom: 0.4rem; }
+      p, li { color: #3f3f46; font-size: 0.95rem; }
+      a { color: #18181b; }
+    </style>
+  </head>
+  <body>
+    <h1>LockIn Privacy Policy</h1>
+    <p><strong>Zero-Storage Cash-Flow Auditing</strong></p>
+
+    <h2>1. Read-Only, Bounded Access</h2>
+    <p>
+      LockIn requests strictly read-only email access (<code>gmail.readonly</code> or
+      <code>Mail.Read</code>) to query receipt, invoice, subscription, and statement emails
+      from the last 90 days (capped at 50 messages per scan). LockIn never sends, modifies,
+      or deletes emails, and never requests bank credentials.
+    </p>
+
+    <h2>2. In-Memory Processing &amp; PII Redaction</h2>
+    <p>
+      Email text is processed exclusively in volatile memory (RAM). Before structured bill
+      extraction, a local regex pass strips personal identifiers such as email addresses,
+      phone numbers, street addresses, and partial card/account numbers.
+    </p>
+
+    <h2>3. Zero Database Persistence</h2>
+    <p>
+      LockIn uses no database. OAuth access tokens exist only in browser memory for the active
+      scan, and neither tokens nor email contents are written to disk or application logs.
+      Closing the tab or clicking <em>Clear</em> immediately discards your session.
+    </p>
+
+    <p style="margin-top: 2rem;"><a href="/">← Back to LockIn</a></p>
+  </body>
+</html>
+
