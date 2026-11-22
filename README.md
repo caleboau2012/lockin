@@ -18,7 +18,7 @@
 2. **Backend (`backend/`):** Stateless Python (FastAPI) service exposing `POST /api/audit`:
    - **Targeted Email Fetch:** Pulls up to 200 receipt/invoice/subscription/statement emails from the last 365 days.
    - **In-Memory PII Sanitization:** Strips names, street addresses, phone numbers, email addresses, and account/card digits before LLM processing.
-   - **Structured LLM Extraction:** Batch-parses anonymized snippets with **Gemini 2.5 Flash** (Google AI Studio Free Tier) into a strict JSON schema.
+   - **Structured LLM Extraction:** Batch-parses anonymized snippets with **Gemini 3.5 Flash** (Google AI Studio Free Tier) into a strict JSON schema.
    - **Deterministic Optimization Engine:** Flags recurring spend, duplicate categories, and price creep, and computes 5- and 10-year compound growth (~7% annual benchmark).
    - **Ephemeral Cleanup:** Returns the audit JSON and discards all in-memory session data.
 

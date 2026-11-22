@@ -3,6 +3,11 @@
 import { SAMPLE_AUDIT_RESPONSE } from './mockAudit';
 
 export async function fetchAuditReport(provider, accessToken) {
+  if (provider === 'mock') {
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    return SAMPLE_AUDIT_RESPONSE;
+  }
+
   const apiUrl = `${__API_BASE_URL__}/api/audit`;
 
   try {
@@ -13,7 +18,7 @@ export async function fetchAuditReport(provider, accessToken) {
       },
       body: JSON.stringify({
         provider,
-        access_token: accessToken ?? null,
+        access_token: accessToken ?? '',
       }),
     });
 
@@ -26,12 +31,11 @@ export async function fetchAuditReport(provider, accessToken) {
 
     return await response.json();
   } catch (err) {
-    // In local mock mode, fall back cleanly to built-in sample data if backend isn't running yet
-    if (provider === 'mock' && err instanceof TypeError) {
-      await new Promise((resolve) => setTimeout(resolve, 650));
-      return SAMPLE_AUDIT_RESPONSE;
+    if (err instanceof TypeError) {
+      throw new Error(
+        `Could not connect to the LockIn backend (${__API_BASE_URL__}). Make sure the FastAPI server is running on port 8000.`
+      );
     }
     throw err;
   }
 }
-
