@@ -2,6 +2,8 @@
 
 const GMAIL_READONLY_SCOPE = 'https://www.googleapis.com/auth/gmail.readonly';
 
+export const isOutlookEnabled = Boolean(__OUTLOOK_CLIENT_ID__);
+
 export function requestGmailToken() {
   const clientId = __GOOGLE_CLIENT_ID__;
   if (!clientId) {

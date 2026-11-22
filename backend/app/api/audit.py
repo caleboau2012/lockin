@@ -7,6 +7,7 @@ from app.schemas.audit import AuditRequest, AuditResponse
 from app.services.extractor import extract_recurring_charges
 from app.services.finance import build_audit_report
 from app.services.gmail import fetch_gmail_billing_emails
+from app.services.pii import sanitize_email_snippets
 
 router = APIRouter(prefix="/api", tags=["audit"])
 
@@ -26,6 +27,7 @@ async def run_audit(payload: AuditRequest) -> AuditResponse:
         lookback_days=settings.audit_lookback_days,
         max_emails=settings.audit_max_emails,
     )
+    emails = sanitize_email_snippets(emails)
 
     charges = await extract_recurring_charges(
         emails=emails,
@@ -40,8 +42,5 @@ async def run_audit(payload: AuditRequest) -> AuditResponse:
         annual_return_rate=settings.annual_return_rate,
     )
 
-    # Explicitly drop local references before returning
-    del emails
-    del charges
     return report
 

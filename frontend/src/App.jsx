@@ -1,12 +1,13 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AlertsList } from './components/AlertsList';
 import { BillsTable } from './components/BillsTable';
 import { ConnectCard } from './components/ConnectCard';
 import { ScanningCard } from './components/ScanningCard';
 import { SummaryStrip } from './components/SummaryStrip';
-import { fetchAuditReport } from './services/api';
+import { fetchAuditReport, wakeBackend } from './services/api';
 import { exportAuditToCsv } from './services/csv';
 import {
+  isOutlookEnabled,
   requestGmailToken,
   requestOutlookToken,
   revokeGmailToken,
@@ -18,6 +19,10 @@ export function App() {
   const [selectedIds, setSelectedIds] = useState(new Set());
   const [activeToken, setActiveToken] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    wakeBackend();
+  }, []);
 
   async function startAudit(provider, token) {
     setErrorMessage(null);
@@ -94,12 +99,15 @@ export function App() {
       .reduce((sum, item) => sum + item.monthly_equivalent, 0);
   }, [audit, selectedIds]);
 
+  const isSampleReport = audit?.provider === 'mock';
+
   return (
     <main className="page-shell">
       {view === 'connect' && (
         <ConnectCard
           onConnectGmail={handleConnectGmail}
           onConnectOutlook={handleConnectOutlook}
+          showOutlook={isOutlookEnabled}
           onRunSample={() => startAudit('mock')}
           errorMessage={errorMessage}
         />
@@ -113,7 +121,9 @@ export function App() {
             <div>
               <h1 className="report-brand">LockIn</h1>
               <span className="report-meta">
-                Scanned {audit.scanned_emails_count} billing emails (in memory)
+                {isSampleReport
+                  ? 'Sample report (demo data)'
+                  : `Scanned ${audit.scanned_emails_count} billing emails (in memory)`}
               </span>
             </div>
             <div className="topbar-actions">
@@ -129,7 +139,7 @@ export function App() {
                 className="btn btn-ghost btn-sm"
                 onClick={handleClearSession}
               >
-                Clear
+                {isSampleReport ? '← Back' : 'Clear'}
               </button>
             </div>
           </header>
@@ -151,8 +161,8 @@ export function App() {
           />
 
           <footer className="report-footer">
-            Zero-storage session · Closing this tab or clicking Clear discards
-            all results ·{' '}
+            Zero-storage session · Closing this tab or clicking{' '}
+            {isSampleReport ? 'Back' : 'Clear'} discards all results ·{' '}
             <a href="/privacy.html" className="subtle-link">
               Privacy
             </a>
@@ -162,4 +172,3 @@ export function App() {
     </main>
   );
 }
-

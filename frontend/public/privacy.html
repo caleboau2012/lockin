@@ -54,8 +54,8 @@
   <h2>2. In-Memory Processing &amp; PII Redaction</h2>
   <p>
     Email text is processed exclusively in volatile memory (RAM). Before structured bill
-    extraction, a local regex pass strips personal identifiers such as email addresses,
-    phone numbers, street addresses, and partial card/account numbers.
+    extraction, a local regex pass strips email addresses and phone numbers before sending
+    billing text for extraction.
   </p>
 
   <h2>3. Zero Database Persistence</h2>

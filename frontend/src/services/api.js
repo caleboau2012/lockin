@@ -2,6 +2,12 @@
 
 import { SAMPLE_AUDIT_RESPONSE } from './mockAudit';
 
+export function wakeBackend() {
+  fetch(`${__API_BASE_URL__}/health`, { method: 'GET' }).catch(() => {
+    // Silent wake-up ping for cold-starting serverless/free hosts (e.g. Render)
+  });
+}
+
 export async function fetchAuditReport(provider, accessToken) {
   if (provider === 'mock') {
     await new Promise((resolve) => setTimeout(resolve, 400));

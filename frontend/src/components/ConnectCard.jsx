@@ -1,6 +1,7 @@
 export function ConnectCard({
   onConnectGmail,
   onConnectOutlook,
+  showOutlook = false,
   onRunSample,
   errorMessage,
 }) {
@@ -26,22 +27,22 @@ export function ConnectCard({
         >
           Connect Gmail
         </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={onConnectOutlook}
-        >
-          Connect Outlook
-        </button>
+        {showOutlook && (
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={onConnectOutlook}
+          >
+            Connect Outlook
+          </button>
+        )}
       </div>
 
-      {import.meta.env.DEV && (
-        <div className="sample-trigger-wrap">
-          <button type="button" className="btn-link" onClick={onRunSample}>
-            Try sample receipts (local dev)
-          </button>
-        </div>
-      )}
+      <div className="sample-trigger-wrap">
+        <button type="button" className="btn-link" onClick={onRunSample}>
+          View sample report
+        </button>
+      </div>
 
       <p className="trust-note">
         Read-only last 365 days · Redacted in RAM · Nothing stored ·{' '}
@@ -52,4 +53,3 @@ export function ConnectCard({
     </section>
   );
 }
-
