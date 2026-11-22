@@ -16,7 +16,7 @@
 
 1. **Frontend (`frontend/`):** React + JavaScript (Vite) single-page app that initiates OAuth, posts the short-lived access token to the backend, renders the audit dashboard, and exports results to CSV in the browser.
 2. **Backend (`backend/`):** Stateless Python (FastAPI) service exposing `POST /api/audit`:
-   - **Targeted Email Fetch:** Pulls up to 50 receipt/invoice/subscription/statement emails from the last 90 days.
+   - **Targeted Email Fetch:** Pulls up to 200 receipt/invoice/subscription/statement emails from the last 365 days.
    - **In-Memory PII Sanitization:** Strips names, street addresses, phone numbers, email addresses, and account/card digits before LLM processing.
    - **Structured LLM Extraction:** Batch-parses anonymized snippets with **Gemini 2.5 Flash** (Google AI Studio Free Tier) into a strict JSON schema.
    - **Deterministic Optimization Engine:** Flags recurring spend, duplicate categories, and price creep, and computes 5- and 10-year compound growth (~7% annual benchmark).

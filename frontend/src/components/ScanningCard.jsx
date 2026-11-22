@@ -6,7 +6,7 @@ export function ScanningCard() {
         Scanning recent receipts &amp; stripping PII in memory…
       </p>
       <p className="scanning-subtitle">
-        Checking up to 50 billing emails from the last 90 days. Nothing is saved
+        Checking up to 200 billing emails from the last 365 days. Nothing is saved
         to disk.
       </p>
     </section>

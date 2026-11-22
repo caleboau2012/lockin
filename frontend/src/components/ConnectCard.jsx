@@ -44,7 +44,7 @@ export function ConnectCard({
       )}
 
       <p className="trust-note">
-        Read-only last 90 days · Redacted in RAM · Nothing stored ·{' '}
+        Read-only last 365 days · Redacted in RAM · Nothing stored ·{' '}
         <a href="/privacy.html" className="subtle-link">
           Privacy
         </a>

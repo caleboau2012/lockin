@@ -12,7 +12,7 @@ export function BillsTable({ items, selectedIds, onToggleItem }) {
 
       {items.length === 0 ? (
         <p className="empty-state">
-          No recurring bills were detected in the last 90 days.
+          No recurring bills were detected in the last 365 days.
         </p>
       ) : (
         <div className="table-wrap">
@@ -57,7 +57,7 @@ export function BillsTable({ items, selectedIds, onToggleItem }) {
                     </td>
                     <td className="col-flag">
                       {item.flags.includes('price_creep') &&
-                      item.price_change_amount ? (
+                        item.price_change_amount ? (
                         <span className="tag tag-warn">
                           +{formatCurrency(item.price_change_amount)} ↑
                         </span>
